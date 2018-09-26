@@ -6,8 +6,20 @@ const classNames = {
 }
 
 
-const itemCountSpan = document.getElementById('item-count')
-const uncheckedCountSpan = document.getElementById('unchecked-count')
+const itemCountSpan = document.getElementById('item-count');
+const uncheckedCountSpan = document.getElementById('unchecked-count');
+
+window.onload = function (){
+  //add eventlistener for enter button on input txt
+  const input  = document.getElementById('input_todo');
+  if(input){
+    input.addEventListener("keyup", function(e){
+      if (e.keyCode === 13){
+        newTodo();
+      }
+    });
+  }
+}
 
 function newTodo() {
   
@@ -53,8 +65,15 @@ function newTodo() {
 function removeTodo(event){
   var li = event.target.parentElement;
   var ul = document.getElementById("todo-list");
-  ul.removeChild(li);
+  var selTask = li.innerText;
+  var liTask = selTask.replace("Delete","");
 
+  
+  var confirmDelete = confirm("You are about to delete " + "'" +  liTask + "'" +  " todo task");
+  if (confirmDelete){
+    ul.removeChild(li);
+  }
+  
   //update span with count of total items after items have been removed
   updateTotalListCount();
   updateTotalUncheckedListCount();
@@ -91,8 +110,11 @@ function updateTotalUncheckedListCount(){
 }
 
 function checkboxChange(){
-  console.log("insidecalcUncheckfunction");
+  //console.log("insidecalcUncheckfunction");
   updateTotalUncheckedListCount();
 }
+
+
+
 
 
